@@ -1,0 +1,60 @@
+logging: 
+  level:
+    root: INFO
+    org:
+      springframework:
+        web: INFO
+    hibernate: 
+      SQL: DEBUG
+      type: DEBUG
+
+server:
+  servlet:
+    context-path: /pm1/
+    session: 
+      persistent: true
+  port: 8082
+  error:
+    whitelabel:
+      enabled: false
+spring:
+  profiles: 
+    active: dev
+  application:
+    name: asl-product
+  thymeleaf:
+    cache: false
+  datasource: 
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: kit
+    password: kit@2020
+    tomcat:
+      max-wait: 20000
+      max-active: 50
+      max-idle: 20
+      min-idle: 15
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate: 
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        id:
+          new_generator_mappings: false
+  jackson:
+    serialization:
+      indent-output: true
+
+eureka:
+  instance:
+    hostname: ${vcap.application.uris[0]:localhost}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 20
+  client:
+    service-url:
+      defaultZone: http://62.171.179.61:8761/eureka
